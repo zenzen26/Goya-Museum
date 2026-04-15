@@ -1,0 +1,43 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap');
+
+@theme {
+  --color-near-black: #1e1e20;
+  --color-aged-gold: #ffd782;
+  --color-olive-grey: #828d6d;
+  --color-stone-grey: #c9c9c9;
+  --color-ember: #c46a1f;
+
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "Cormorant Garamond", Georgia, serif;
+  --font-label: "Inter", sans-serif;
+}
+
+/* Base styles */
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  background-color: var(--color-near-black);
+  color: white;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-near-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-stone-grey);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-aged-gold);
+}
