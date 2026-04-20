@@ -7,7 +7,10 @@ import RiseToCourtSection from './components/RisetoCourtSection';
 import WarSection from './components/WarSection';
 import OtherWorksSection from './components/OtherWorksSection';
 import BlackPaintingsSection from './components/BlackPaintingsSection';
-import SaturnDevouringSection from './components/SaturnDevouringSection';
+import BentoGallery from './components/BentoGallery';
+import GrainOverlay from './components/GrainOverlay';
+import BackgroundMusic from './components/BackgroundMusic';
+import GoyaFooter from './components/Footer';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,15 +23,21 @@ function App() {
   }, []);
 
   return (
-    <main className="relative">
-      <HeroSection />
-      <AboutSection />
-      <RiseToCourtSection />
-      <WarSection />
-      <OtherWorksSection />
-      <BlackPaintingsSection />
-      <SaturnDevouringSection />
-    </main>
+    <div className="relative bg-near-black min-h-screen">
+      <GrainOverlay />
+      <BackgroundMusic />
+
+      <main className="relative">
+        <HeroSection />
+        <AboutSection />
+        <RiseToCourtSection />
+        <WarSection />
+        <OtherWorksSection />
+        <BlackPaintingsSection />
+        <BentoGallery />
+        <GoyaFooter />
+      </main>
+    </div>
   );
 }
 

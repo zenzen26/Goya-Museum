@@ -10,26 +10,26 @@ const WORKS = [
   {
     id: 1,
     image: '/other-work-1.jpg',
-    title: 'Work One',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    title: 'A heroic feat! With dead men!',
+    description: 'Mutilated bodies are shown against a backdrop barren landscape',
   },
   {
     id: 2,
     image: '/other-work-2.jpg',
-    title: 'Work Two',
-    description: 'Sed do eiusmod tempor incididunt ut labore et dolore.',
+    title: 'This is bad',
+    description: 'A monk is killed by French soldiers looting church treasures.',
   },
   {
     id: 3,
     image: '/other-work-3.jpg',
-    title: 'Work Three',
-    description: 'Ut enim ad minim veniam, quis nostrud exercitation.',
+    title: 'Cartloads for the cemetery',
+    description: 'The last print in the famine group.',
   },
   {
     id: 4,
     image: '/other-work-4.jpg',
-    title: 'Work Four',
-    description: 'Duis aute irure dolor in reprehenderit in voluptate.',
+    title: 'There is no one to help them',
+    description: 'On a hillside, three women lie dead and a lone figure weeps in mournful grief.',
   },
 ];
 
@@ -116,8 +116,7 @@ export default function OtherWorksSection() {
             Other Works
           </h2>
           <p className="font-body text-xl sm:text-2xl lg:text-3xl text-stone-grey/30 mt-4 text-center max-w-2xl px-4">
-            lorem ipsum blablabla
-          </p>
+            The Disasters of War is a series of 82 prints created by Francisco Goya between 1810 and 1820.</p>
         </div>
 
         {/* Horizontal Gallery */}
