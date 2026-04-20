@@ -118,12 +118,11 @@ export default function GoyaFooter() {
         <div className="overflow-hidden mb-12">
           <div className="font-display text-[8vw] sm:text-[6vw] lg:text-[4vw] text-aged-gold/[0.03] text-center whitespace-nowrap select-none">
             FRANCISCO DE GOYA Y LUCIENTES
-            <p className="place-self-center font-body max-w-6xl text-sm text-aged-gold/[0.2] leading-relaxed">
-                This is a fake website. The Museo del Prado exhibition details presented here are fictional and created solely 
-                for showcasing. This project is not affiliated 
-                with the Museo del Prado or the estate of Francisco de Goya.
-            </p>
           </div>
+           <p className="place-self-center text-center font-body max-w-6xl text-sm text-aged-gold/[0.2] leading-relaxed">
+                The Museo del Prado exhibition details presented here are fictional and created solely 
+                for showcasing.
+            </p>
         </div>
 
         {/* Bottom bar */}

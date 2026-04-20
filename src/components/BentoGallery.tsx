@@ -113,12 +113,13 @@ export default function BentoGallery() {
         if (el) gsap.set(el, { x: 0, y: 0, opacity: 1 });
       });
 
+      // FIX: Use autoAlpha instead of opacity + remove zIndex: 5 override
       fullViewRefs.current.forEach((el, i) => {
         if (el) {
           gsap.set(el, { 
-            opacity: 0,
-            scale: 1.1,
-            zIndex: 5
+            autoAlpha: 0, // Sets both opacity: 0 AND visibility: hidden
+            scale: 1.1
+            // REMOVED: zIndex: 5 (was overriding inline zIndex: 20 + index)
           });
         }
       });
@@ -132,29 +133,24 @@ export default function BentoGallery() {
       });
 
       // BENTO GRID SPLIT PHASE (0-20%)
-      // Grid items move away in four directions
       bentoItemRefs.current.forEach((el, index) => {
         if (!el) return;
 
-        // Determine direction based on grid position
-        // 0: top-left, 1: top-right, 2: bottom-left, 3: bottom-right
         const isLeft = index % 2 === 0;
         const isTop = index < 2;
 
-        const moveX = isLeft ? '-100vw' : '100vw';  // Left items go left, right items go right
-        const moveY = isTop ? '-100vh' : '100vh';   // Top items go up, bottom items go down
+        const moveX = isLeft ? '-100vw' : '100vw';
+        const moveY = isTop ? '-100vh' : '100vh';
 
-        // Move grid items away from center
         tl.to(el, {
           x: moveX,
           y: moveY,
           opacity: 0,
           duration: 0.2,
           ease: 'power2.inOut',
-        }, index * 0.02); // Slight stagger for organic feel
+        }, index * 0.02);
       });
 
-      // Hide entire bento grid container after items move
       tl.to(bentoGridRef.current, {
         visibility: 'hidden',
         duration: 0.05,
@@ -169,10 +165,9 @@ export default function BentoGallery() {
 
         if (!fullView) return;
 
-        // ENTRANCE (0-30% of segment)
-        // Full view fades in while scaling down slightly
+        // ENTRANCE (0-30% of segment) - autoAlpha handles opacity + visibility
         tl.to(fullView, {
-          opacity: 1,
+          autoAlpha: 1,
           scale: 1,
           duration: segmentSize * 0.3,
           ease: 'power2.out',
@@ -202,7 +197,6 @@ export default function BentoGallery() {
 
         // EXIT (75-100% of segment)
         if (index < PAINTINGS.length - 1) {
-          // Fade out blur and text first
           if (blurOverlay) {
             tl.to(blurOverlay, {
               opacity: 0,
@@ -220,9 +214,9 @@ export default function BentoGallery() {
             }, startProgress + segmentSize * 0.75);
           }
 
-          // Fade out current painting
+          // FIX: Use autoAlpha to fade out + hide
           tl.to(fullView, {
-            opacity: 0,
+            autoAlpha: 0,
             scale: 1.05,
             duration: segmentSize * 0.15,
             ease: 'power2.in',
@@ -295,16 +289,16 @@ export default function BentoGallery() {
             </div>
           </div>
 
-          {/* FULL VIEWS - All use object-cover object-center */}
+          {/* FULL VIEWS - zIndex preserved from inline style, autoAlpha handles visibility */}
           {PAINTINGS.map((painting, index) => (
             <div
               key={`full-${painting.id}`}
               ref={el => fullViewRefs.current[index] = el}
-              className="absolute inset-0 w-full h-full pointer-events-none"
-              style={{ opacity: 0, zIndex: 20 + index }}
+              className="absolute inset-0 w-full h-full"
+              style={{ zIndex: 20 + index }}
             >
-              {/* Full bleed image - ALL paintings use object-cover object-center */}
-              <div className="absolute inset-0 w-full h-full">
+              {/* Full bleed image - no pointer events, let clicks pass to text */}
+              <div className="absolute inset-0 w-full h-full pointer-events-none">
                 <img
                   src={painting.image}
                   alt={painting.title}
@@ -312,15 +306,15 @@ export default function BentoGallery() {
                 />
               </div>
 
-              {/* Backdrop blur */}
+              {/* Backdrop blur - no pointer events */}
               <div
                 ref={el => blurRefs.current[index] = el}
-                className="absolute inset-0 bg-near-black/40 pointer-events-none z-30"
+                className="absolute inset-0 bg-near-black/40 z-30 pointer-events-none"
                 style={{ backdropFilter: 'blur(0px)' }}
               />
 
-              {/* Text content */}
-              <div className="relative z-40 w-full h-full flex items-center pointer-events-none">
+              {/* Text content - pointer events enabled for button */}
+              <div className="absolute inset-0 z-40 flex items-center pointer-events-none">
                 <div
                   ref={el => textRefs.current[index] = el}
                   className="absolute right-[5%] sm:right-[8%] lg:right-[10%] w-[90%] sm:w-[45%] lg:w-[40%] max-w-xl pointer-events-auto"
@@ -343,7 +337,7 @@ export default function BentoGallery() {
                   </div>
                   <button
                     onClick={() => openModal(painting)}
-                    className="group flex items-center gap-3 font-label text-xs tracking-[0.2em] uppercase text-aged-gold hover:text-white transition-colors duration-300"
+                    className="group flex items-center gap-3 font-label text-xs tracking-[0.2em] uppercase text-aged-gold hover:text-white transition-colors duration-300 cursor-pointer"
                   >
                     <span>View Painting</span>
                     <svg
@@ -364,7 +358,7 @@ export default function BentoGallery() {
           <div className="absolute inset-6 sm:inset-8 lg:inset-12 border border-aged-gold/20 pointer-events-none z-50" />
 
           {/* Progress indicators */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-50">
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-50 pointer-events-none">
             {PAINTINGS.map((_, index) => (
               <div
                 key={index}
@@ -380,7 +374,7 @@ export default function BentoGallery() {
           </div>
 
           {/* Counter */}
-          <div className="absolute top-8 right-8 z-50 font-label text-xs tracking-[0.2em] uppercase text-aged-gold/60">
+          <div className="absolute top-8 right-8 z-50 font-label text-xs tracking-[0.2em] uppercase text-aged-gold/60 pointer-events-none">
             <span className="text-aged-gold">{String(activeIndex + 1).padStart(2, '0')}</span>
             <span className="mx-2">/</span>
             <span>{String(PAINTINGS.length).padStart(2, '0')}</span>

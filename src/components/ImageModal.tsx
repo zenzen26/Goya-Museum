@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useCallback } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -15,6 +15,7 @@ export default function ImageModal({ isOpen, onClose, imageSrc, title }: ImageMo
   const modalRef = useRef<HTMLDivElement>(null);
   const imageContainerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
+  const scrollYRef = useRef<number>(0);
 
   // Mouse parallax effect for modal image
   useEffect(() => {
@@ -54,59 +55,112 @@ export default function ImageModal({ isOpen, onClose, imageSrc, title }: ImageMo
     };
   }, [isOpen]);
 
-  // Modal open/close animation with proper scroll lock cleanup
+  // Handle scroll lock without breaking ScrollTrigger
   useEffect(() => {
-    if (!modalRef.current) return;
+    if (!isOpen) return;
 
-    if (isOpen) {
-      // Store current scroll position
-      const scrollY = window.scrollY;
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = '100%';
-      document.body.style.overflow = 'hidden';
+    // Store current scroll position BEFORE any changes
+    scrollYRef.current = window.scrollY;
 
+    // Get the scroll container that ScrollTrigger uses (usually document.body or html)
+    const html = document.documentElement;
+    const body = document.body;
+
+    // Store original styles
+    const originalHtmlOverflow = html.style.overflow;
+    const originalBodyOverflow = body.style.overflow;
+    const originalBodyPosition = body.style.position;
+    const originalBodyWidth = body.style.width;
+    const originalBodyTop = body.style.top;
+
+    // Lock scroll by hiding overflow on both html and body
+    // This prevents scroll without changing position/fixed which breaks ScrollTrigger
+    html.style.overflow = 'hidden';
+    body.style.overflow = 'hidden';
+
+    // Prevent touch scrolling on mobile
+    const preventTouchMove = (e: TouchEvent) => {
+      e.preventDefault();
+    };
+    document.addEventListener('touchmove', preventTouchMove, { passive: false });
+
+    // Animate modal in
+    if (modalRef.current) {
       gsap.fromTo(
         modalRef.current,
         { opacity: 0 },
         { opacity: 1, duration: 0.3, ease: 'power2.out' }
       );
-    } else {
-      gsap.to(modalRef.current, {
-        opacity: 0,
-        duration: 0.2,
-        ease: 'power2.in',
-        onComplete: () => {
-          // Restore scroll position
-          const scrollY = document.body.style.top;
-          document.body.style.position = '';
-          document.body.style.top = '';
-          document.body.style.width = '';
-          document.body.style.overflow = '';
-          window.scrollTo(0, parseInt(scrollY || '0') * -1);
-          
-          // Refresh ScrollTrigger to recalculate positions
-          ScrollTrigger.refresh();
-        },
-      });
     }
 
     return () => {
-      // Cleanup on unmount
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      document.body.style.overflow = '';
+      // Remove touch listener
+      document.removeEventListener('touchmove', preventTouchMove);
+
+      // Restore original styles
+      html.style.overflow = originalHtmlOverflow;
+      body.style.overflow = originalBodyOverflow;
+      body.style.position = originalBodyPosition;
+      body.style.width = originalBodyWidth;
+      body.style.top = originalBodyTop;
     };
   }, [isOpen]);
+
+  // Handle close with proper cleanup
+  const handleClose = useCallback(() => {
+    if (!modalRef.current) {
+      onClose();
+      return;
+    }
+
+    // Animate out first
+    gsap.to(modalRef.current, {
+      opacity: 0,
+      duration: 0.2,
+      ease: 'power2.in',
+      onComplete: () => {
+        // Store scroll position to restore
+        const scrollPos = scrollYRef.current;
+
+        // Call onClose to unmount the modal
+        onClose();
+
+        // Use requestAnimationFrame to ensure DOM has updated
+        requestAnimationFrame(() => {
+          // Restore scroll position
+          window.scrollTo(0, scrollPos);
+
+          // Refresh ScrollTrigger after a brief delay to ensure layout is stable
+          requestAnimationFrame(() => {
+            ScrollTrigger.refresh(true);
+          });
+        });
+      },
+    });
+  }, [onClose]);
+
+  // Handle escape key
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        handleClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isOpen, handleClose]);
 
   if (!isOpen) return null;
 
   return (
     <div
       ref={modalRef}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8"
-      onClick={onClose}
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-8"
+      onClick={handleClose}
+      style={{ opacity: 0 }}
     >
       {/* Backdrop with blur */}
       <div className="absolute inset-0 bg-near-black/90 backdrop-blur-xl" />
@@ -118,7 +172,7 @@ export default function ImageModal({ isOpen, onClose, imageSrc, title }: ImageMo
       >
         {/* Close button */}
         <button
-          onClick={onClose}
+          onClick={handleClose}
           className="absolute -top-12 right-0 text-stone-grey hover:text-aged-gold transition-colors duration-300 font-label text-sm tracking-widest uppercase"
         >
           Close
