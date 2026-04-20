@@ -19,7 +19,7 @@ const PAINTINGS: Painting[] = [
     id: 'saturn',
     title: 'Saturn Devouring His Son',
     year: '1819 — 1823',
-    image: '/saturn.png',
+    image: 'saturn.png',
     description: `In the twilight of his life, Goya painted directly onto the walls of his home—the Quinta del Sordo. These works were never meant for public eyes. They were exorcisms, visions of a mind confronting mortality, madness, and the void.
 
 Saturn Devouring His Son stands as the most terrifying of them all. The Titan, eyes wild with frenzy, tears into the flesh of his child. There is no mythological grandeur here—only raw, animalistic horror. The brushwork is crude, violent, as if Goya attacked the plaster itself.
@@ -30,7 +30,7 @@ This is not a painting about mythology. It is a painting about time—the devour
     id: 'witches',
     title: 'Witches\' Sabbath',
     year: '1819 — 1823',
-    image: '/witches.jpg',
+    image: 'witches.jpg',
     description: `A grotesque goat-headed figure sits enthroned, presiding over a coven of witches. The scene is lit by a sickly, unnatural light that seems to emanate from the devil himself. To Goya, this was not fantasy—it was the reality of ignorance and superstition that plagued Spain.
 
 The figures are huddled, grotesque, their faces distorted by fanaticism. One witch holds a child aloft, an offering to the dark lord. The painting is an indictment of the Inquisition's lingering shadow, of the fear that still gripped the Spanish people even as enlightenment dawned elsewhere in Europe.
@@ -41,7 +41,7 @@ Goya saw the darkness in human nature and painted it without flinching.`,
     id: 'pilgrimage',
     title: 'A Pilgrimage to San Isidro',
     year: '1819 — 1823',
-    image: '/pilgrimage.jpg',
+    image: 'pilgrimage.jpg',
     description: `A procession of gaunt, ghostly figures moves through a darkened landscape. They are pilgrims seeking miracles, but their faces show only desperation and madness. The sky churns with storm clouds that seem to press down upon the earth itself.
 
 Goya captures the hysteria of religious fervor, the way faith can curdle into something dark and obsessive. These are not holy seekers but lost souls, wandering in a nightmare of their own making. The painting pulses with a rhythm of despair, each figure more haunted than the last.
@@ -52,7 +52,7 @@ It is a vision of Spain itself—wounded, exhausted, stumbling toward an uncerta
     id: 'soup',
     title: 'Two Old Men Eating Soup',
     year: '1819 — 1823',
-    image: '/soup.jpg',
+    image: 'soup.jpg',
     description: `Two ancient faces emerge from the darkness, hunched over a bowl of soup. Their features are exaggerated, almost caricatures, yet there is profound pathos in their expressions. Hunger and age have reduced them to this—two souls sharing warmth in the void.
 
 The painting is intimate despite its grotesque qualities. Goya shows us the reality of aging, stripped of dignity, reduced to basic needs. The darkness that surrounds them feels absolute, as if they are the last two people on earth.

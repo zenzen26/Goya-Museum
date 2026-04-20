@@ -81,7 +81,7 @@ export default function BlackPaintingsSection() {
           className="absolute inset-0 w-full h-full"
         >
           <img
-            src="/black-painting.jpg"
+            src="black-painting.jpg"
             alt="Black Paintings by Francisco Goya"
             className="w-full h-full object-cover object-center grayscale brightness-50 scale-110"
           />

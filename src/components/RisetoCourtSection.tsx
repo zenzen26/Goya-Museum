@@ -184,7 +184,7 @@ export default function RiseToCourtSection() {
             {/* Don Luis Image */}
             <div className="absolute inset-0 w-full h-full overflow-hidden">
               <img
-                src="/don-luis.jpg"
+                src="don-luis.jpg"
                 alt="Don Luis de Borbón by Francisco Goya"
                 className="w-full h-full object-cover object-center scale-110"
               />
@@ -219,7 +219,7 @@ export default function RiseToCourtSection() {
                   ))}
                 </div>
                 <button
-                  onClick={() => openModal('/don-luis.jpg', DON_LUIS_TEXT.title)}
+                  onClick={() => openModal('don-luis.jpg', DON_LUIS_TEXT.title)}
                   className="group flex items-center gap-3 font-label text-xs tracking-[0.2em] uppercase text-aged-gold hover:text-white transition-colors duration-300"
                 >
                   <span>View Painting</span>
@@ -243,7 +243,7 @@ export default function RiseToCourtSection() {
             style={{ clipPath: 'inset(0 100% 0 0)' }}
           >
             <img
-              src="/charles.jpg"
+              src="charles.jpg"
               alt="Charles IV and His Family by Francisco Goya"
               className="w-full h-full object-cover object-center scale-110"
             />
@@ -278,7 +278,7 @@ export default function RiseToCourtSection() {
                 ))}
               </div>
               <button
-                onClick={() => openModal('/charles.jpg', CHARLES_TEXT.title)}
+                onClick={() => openModal('charles.jpg', CHARLES_TEXT.title)}
                 className="group flex items-center gap-3 font-label text-xs tracking-[0.2em] uppercase text-aged-gold hover:text-white transition-colors duration-300"
               >
                 <span>View Painting</span>

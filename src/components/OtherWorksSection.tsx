@@ -9,25 +9,25 @@ gsap.registerPlugin(ScrollTrigger);
 const WORKS = [
   {
     id: 1,
-    image: '/other-work-1.jpg',
+    image: 'other-work-1.jpg',
     title: 'A heroic feat! With dead men!',
     description: 'Mutilated bodies are shown against a backdrop barren landscape',
   },
   {
     id: 2,
-    image: '/other-work-2.jpg',
+    image: 'other-work-2.jpg',
     title: 'This is bad',
     description: 'A monk is killed by French soldiers looting church treasures.',
   },
   {
     id: 3,
-    image: '/other-work-3.jpg',
+    image: 'other-work-3.jpg',
     title: 'Cartloads for the cemetery',
     description: 'The last print in the famine group.',
   },
   {
     id: 4,
-    image: '/other-work-4.jpg',
+    image: 'other-work-4.jpg',
     title: 'There is no one to help them',
     description: 'On a hillside, three women lie dead and a lone figure weeps in mournful grief.',
   },

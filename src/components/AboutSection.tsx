@@ -85,7 +85,7 @@ export default function AboutSection() {
           className="w-full lg:w-1/2 h-[40vh] lg:h-full relative overflow-hidden"
         >
           <img
-            src="/artist.jpg"
+            src="artist.jpg"
             alt="Francisco Goya"
             className="w-full h-full object-cover object-center contrast-125 brightness-75"
           />

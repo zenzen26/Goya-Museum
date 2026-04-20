@@ -155,11 +155,11 @@ export default function WarSection() {
           <div
             ref={topImageRef}
             className="absolute top-0 left-0 w-full h-1/2 overflow-hidden cursor-pointer group"
-            onClick={() => openModal('/second-may.jpg', 'The Second of May 1808')}
+            onClick={() => openModal('second-may.jpg', 'The Second of May 1808')}
             style={{ transform: 'translateX(-100%)' }}
           >
             <img
-              src="/second-may.jpg"
+              src="second-may.jpg"
               alt="The Second of May 1808 by Francisco Goya"
               className="w-full h-full object-cover object-center scale-110 transition-transform duration-700 group-hover:scale-105"
             />
@@ -175,11 +175,11 @@ export default function WarSection() {
           <div
             ref={bottomImageRef}
             className="absolute bottom-0 left-0 w-full h-1/2 overflow-hidden cursor-pointer group"
-            onClick={() => openModal('/third-may.jpg', 'The Third of May 1808')}
+            onClick={() => openModal('third-may.jpg', 'The Third of May 1808')}
             style={{ transform: 'translateX(100%)' }}
           >
             <img
-              src="/third-may.jpg"
+              src="third-may.jpg"
               alt="The Third of May 1808 by Francisco Goya"
               className="w-full h-full object-cover object-center scale-110 transition-transform duration-700 group-hover:scale-105"
             />
@@ -229,7 +229,7 @@ export default function WarSection() {
               {/* View Buttons - Both paintings */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <button
-                  onClick={() => openModal('/second-may.jpg', 'The Second of May 1808')}
+                  onClick={() => openModal('second-may.jpg', 'The Second of May 1808')}
                   className="group inline-flex items-center gap-3 px-8 py-4 border border-aged-gold/40 hover:border-aged-gold font-label text-xs tracking-[0.2em] uppercase text-aged-gold hover:text-white hover:bg-aged-gold/10 transition-all duration-300"
                 >
                   <span>Second of May</span>
@@ -243,7 +243,7 @@ export default function WarSection() {
                   </svg>
                 </button>
                 <button
-                  onClick={() => openModal('/third-may.jpg', 'The Third of May 1808')}
+                  onClick={() => openModal('third-may.jpg', 'The Third of May 1808')}
                   className="group inline-flex items-center gap-3 px-8 py-4 border border-aged-gold/40 hover:border-aged-gold font-label text-xs tracking-[0.2em] uppercase text-aged-gold hover:text-white hover:bg-aged-gold/10 transition-all duration-300"
                 >
                   <span>Third of May</span>
